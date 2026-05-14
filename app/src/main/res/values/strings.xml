@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Atlas Wear</string>
+    <string name="title_activity_main_activity2_user_login_page">MainActivity2UserLoginPage</string>
 </resources>
