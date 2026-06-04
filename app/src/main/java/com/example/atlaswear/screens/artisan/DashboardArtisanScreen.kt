@@ -57,7 +57,6 @@ fun DashboardArtisanScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues)
                 .verticalScroll(rememberScrollState())
         ) {
             // Header

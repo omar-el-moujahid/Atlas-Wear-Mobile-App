@@ -52,10 +52,9 @@ fun NavGraph(navController: NavHostController) {
         return
     }
 
-    // ✅ startDestination FIXE — jamais LOGIN pour éviter page blanche
     NavHost(
         navController = navController,
-        startDestination = Routes.HOME  // toujours HOME
+        startDestination = Routes.LOGIN
     ) {
         composable(Routes.LOGIN) {
             LoginScreen(

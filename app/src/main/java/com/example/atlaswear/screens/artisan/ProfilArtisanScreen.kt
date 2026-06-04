@@ -19,30 +19,43 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.atlaswear.model.User
 import com.example.atlaswear.navigation.Routes
 import com.example.atlaswear.ui.theme.*
+import com.example.atlaswear.viewmodel.ArtisanViewModel
 import com.example.atlaswear.viewmodel.AuthViewModel
 
 @Composable
 fun ProfilArtisanScreen(
     user: User,
     navController: NavController,
-    authViewModel: AuthViewModel
+    authViewModel: AuthViewModel,
+    artisanViewModel: ArtisanViewModel = viewModel() // Réutilisation directe du même ViewModel que le Dashboard
 ) {
+    // Recharger les données de l'artisan à l'ouverture de l'écran
+    LaunchedEffect(user.uid) {
+        artisanViewModel.loadStats(user.uid)
+    }
+
+    // Récupération de l'état des statistiques calculées
+    val stats by artisanViewModel.stats.collectAsState()
+
     Scaffold(containerColor = Beige) { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .padding(bottom = paddingValues.calculateBottomPadding())
                 .verticalScroll(rememberScrollState())
         ) {
-            // ── Header noir ──────────────────────────────────────
+            // ── Header noir ajusté ──────────────────────────────────────
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(Noir)
-                    .padding(horizontal = 20.dp, vertical = 24.dp),
+                    .statusBarsPadding()
+                    .padding(start = 20.dp, end = 20.dp, top = 36.dp, bottom = 28.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -68,7 +81,7 @@ fun ProfilArtisanScreen(
                         }
                     }
 
-                    Spacer(Modifier.height(14.dp))
+                    Spacer(Modifier.height(16.dp))
 
                     // Avatar (Rond doré avec l'initiale)
                     Box(
@@ -87,9 +100,9 @@ fun ProfilArtisanScreen(
                         )
                     }
 
-                    Spacer(Modifier.height(12.dp))
+                    Spacer(Modifier.height(14.dp))
 
-                    // Prénom + Nom
+                    // Prénom + Nom (Dynamique)
                     Text(
                         "${user.prenom} ${user.nom}",
                         fontSize = 20.sp,
@@ -97,9 +110,9 @@ fun ProfilArtisanScreen(
                         color = Color.White
                     )
 
-                    Spacer(Modifier.height(4.dp))
+                    Spacer(Modifier.height(6.dp))
 
-                    // Ville (ex: Fès, Maroc)
+                    // Ville (Dynamique)
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
                             Icons.Default.LocationOn,
@@ -107,7 +120,7 @@ fun ProfilArtisanScreen(
                             tint = Dore,
                             modifier = Modifier.size(14.dp)
                         )
-                        Spacer(Modifier.width(3.dp))
+                        Spacer(Modifier.width(4.dp))
                         Text(
                             "${user.ville}, Maroc",
                             fontSize = 13.sp,
@@ -117,21 +130,21 @@ fun ProfilArtisanScreen(
 
                     Spacer(Modifier.height(4.dp))
 
-                    // Email de l'artisan
+                    // Email de l'artisan (Dynamique)
                     Text(user.email, fontSize = 12.sp, color = Color.White.copy(alpha = 0.5f))
 
-                    Spacer(Modifier.height(18.dp))
+                    Spacer(Modifier.height(22.dp))
 
-                    // Zone des Statistiques (Produits, Commandes, MAD/mois)
+                    // Zone des Statistiques DYNAMIQUES (Synchronisées avec le Dashboard)
                     Row(horizontalArrangement = Arrangement.spacedBy(36.dp)) {
-                        StatItem("12", "Produits publiés")
-                        StatItem("12", "Commandes")
-                        StatItem("12", "MAD / mois")
+                        StatItem("${stats.nbProduits}", "Produits publiés")
+                        StatItem("${stats.nbCommandes}", "Commandes")
+                        StatItem("${stats.revenus.toInt()} MAD", "MAD ce mois")
                     }
                 }
             }
 
-            Spacer(Modifier.height(20.dp))
+            Spacer(Modifier.height(24.dp))
 
             // ── Section MON COMPTE ────────────────────────────────
             Text(
@@ -157,26 +170,26 @@ fun ProfilArtisanScreen(
                         label = "Ajouter un produit",
                         iconBg = Vert.copy(alpha = 0.1f),
                         iconTint = Vert,
-                        onClick = { navController.navigate(Routes.ARTISAN_PRODUITS) } // Ajuster selon vos routes d'ajout
+                        onClick = { navController.navigate(Routes.ARTISAN_PRODUITS) }
                     )
                     HorizontalDivider(color = Beige)
 
-                    // 2. Mes Produits (avec Badge 12)
+                    // 2. Mes Produits (Badge Dynamique)
                     MenuRow(
                         icon = Icons.Default.Inventory,
                         label = "Mes Produits",
-                        badge = "12",
+                        badge = if (stats.nbProduits > 0) "${stats.nbProduits}" else null,
                         iconBg = Color(0xFF8B5CF6).copy(alpha = 0.1f),
                         iconTint = Color(0xFF8B5CF6),
-                        onClick = { /* Navigation vers la liste des produits */ }
+                        onClick = { /* Navigation vers la liste des produits si existante */ }
                     )
                     HorizontalDivider(color = Beige)
 
-                    // 3. Commandes reçues (avec Badge 12)
+                    // 3. Commandes reçues (Badge Dynamique)
                     MenuRow(
                         icon = Icons.Default.ShoppingCart,
                         label = "Commandes reçues",
-                        badge = "12",
+                        badge = if (stats.nbCommandes > 0) "${stats.nbCommandes}" else null,
                         iconBg = Dore.copy(alpha = 0.1f),
                         iconTint = Dore,
                         onClick = { navController.navigate(Routes.ARTISAN_COMMANDES) }
@@ -204,7 +217,7 @@ fun ProfilArtisanScreen(
                 }
             }
 
-            Spacer(Modifier.height(12.dp))
+            Spacer(Modifier.height(16.dp))
 
             // ── Section Déconnexion ───────────────────────────────
             Card(
@@ -230,7 +243,7 @@ fun ProfilArtisanScreen(
                 )
             }
 
-            Spacer(Modifier.height(24.dp))
+            Spacer(Modifier.height(32.dp))
         }
     }
 }

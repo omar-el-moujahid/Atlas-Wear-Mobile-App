@@ -11,7 +11,11 @@ import kotlinx.coroutines.tasks.await
 data class ProfilStats(
     val nbCommandes: Int = 0,
     val nbFavoris: Int = 0,
-    val nbEnCours: Int = 0
+    val nbEnCours: Int = 0 ,
+
+    // pour l artisan on pourrait ajouter :
+    val nbProduitsPublies: Int = 0,
+    val gainMensuel: Int = 0
 )
 
 class ProfilViewModel : ViewModel() {
@@ -49,6 +53,48 @@ class ProfilViewModel : ViewModel() {
                 )
             } catch (e: Exception) {
                 // garder les valeurs par défaut
+            }
+        }
+    }
+
+    //  CHARGEMENT STATS ARTISAN
+    fun loadArtisanStats(artisanId: String) {
+        viewModelScope.launch {
+            try {
+                // 1. Récupérer le nombre de produits publiés par l'artisan
+                val produits = db.collection("produits")
+                    .whereEqualTo("artisanId", artisanId)
+                    .get().await()
+                val totalProduits = produits.size()
+
+                // 2. Récupérer TOUTES les commandes reçues par l'artisan
+                val commandes = db.collection("commandes")
+                    .whereEqualTo("artisanId", artisanId)
+                    .get().await()
+                val totalCommandes = commandes.size()
+
+                // 3. Calculer l'argent total (Toutes les commandes sauf "annule")
+                var totalGains = 0
+                for (doc in commandes.documents) {
+                    val statut = doc.getString("statut") ?: ""
+
+                    // Filtre : On prend tout SAUF les commandes annulées
+                    if (statut != "annule") {
+                        val prix = doc.getLong("total")?.toInt()
+                            ?: doc.getDouble("total")?.toInt()
+                            ?: 0
+                        totalGains += prix
+                    }
+                }
+
+                // Mettre à jour l'état de l'interface graphique
+                _stats.value = ProfilStats(
+                    nbProduitsPublies = totalProduits,
+                    nbCommandes = totalCommandes, // Contient bien TOUTES les commandes reçues
+                    gainMensuel = totalGains      // Somme de l'argent (hors annulées)
+                )
+            } catch (e: Exception) {
+                // En cas d'erreur ou base vide, on laisse les valeurs par défaut (0)
             }
         }
     }
