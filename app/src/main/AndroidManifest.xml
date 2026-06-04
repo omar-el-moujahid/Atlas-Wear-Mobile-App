@@ -11,20 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AtlasWear">
-        <activity
-            android:name=".MainActivity2UserLoginPage"
-            android:exported="true"
-            android:label="@string/title_activity_main_activity2_user_login_page"
-            android:theme="@style/Theme.AtlasWear">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".UserLoginPage"
-            android:exported="false" />
+        <!-- SEULE ACTIVITY — MainActivity est le point d'entrée -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -32,10 +20,10 @@
             android:theme="@style/Theme.AtlasWear">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

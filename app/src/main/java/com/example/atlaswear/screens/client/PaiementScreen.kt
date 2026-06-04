@@ -1,7 +1,5 @@
 package com.example.atlaswear.screens.client
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -48,12 +46,12 @@ fun PaiementScreen(
 
     // Quand la commande est passée → naviguer vers confirmation
     LaunchedEffect(commandePassee) {
-        commandePassee?.let { commandeId ->
+        commandePassee?.let { _ ->
             val total = (panier.total + 30).toInt()
             val nbArticles = panier.nombreArticles
             viewModel.resetCommandePassee()
             navController.navigate("confirmation/$total/$nbArticles") {
-                popUpTo(Routes.PANIER) { inclusive = true }
+                popUpTo(Routes.HOME) { inclusive = false }
             }
         }
     }

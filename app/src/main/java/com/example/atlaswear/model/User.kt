@@ -1,9 +1,7 @@
 package com.example.atlaswear.model
 
 import com.google.firebase.Timestamp
-import com.google.firebase.firestore.DocumentId
 data class User (
-    @DocumentId
     val uid: String = "",
     val nom : String = "",
     val prenom : String = "",

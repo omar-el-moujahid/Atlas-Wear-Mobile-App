@@ -5,7 +5,7 @@ import com.google.firebase.Timestamp
 data class Commande(
     val commandeId: String = "",
     val clientId: String = "",
-    val statut: String = "en_attente",
+    val statut: String = StatutCommande.EN_ATTENTE,
     val adresse: String = "",
     val lignes: List<LigneCommande> = emptyList(),
     val sousTotal: Double = 0.0,

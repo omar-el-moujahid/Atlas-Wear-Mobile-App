@@ -1,0 +1,57 @@
+[33mcommit d9a96c08fc93ea0237325e5df673aca06da236a4[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: omar-el-moujahid <omarelmoujahid5@gmail.com>
+Date:   Thu Jun 4 17:56:04 2026 +0200
+
+    end a the first mvp
+
+[1mdiff --git a/app/src/main/java/com/example/atlaswear/components/BottomNavBarArtisan.kt b/app/src/main/java/com/example/atlaswear/components/BottomNavBarArtisan.kt[m
+[1mnew file mode 100644[m
+[1mindex 0000000..d30ccae[m
+[1m--- /dev/null[m
+[1m+++ b/app/src/main/java/com/example/atlaswear/components/BottomNavBarArtisan.kt[m
+[36m@@ -0,0 +1,4 @@[m
+[32m+[m[32mpackage com.example.atlaswear.components[m
+[32m+[m
+[32m+[m[32mclass BottomNavBarArtisan {[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/app/src/main/java/com/example/atlaswear/screens/artisan/AjouterProduitScreen.kt b/app/src/main/java/com/example/atlaswear/screens/artisan/AjouterProduitScreen.kt[m
+[1mnew file mode 100644[m
+[1mindex 0000000..accd1bf[m
+[1m--- /dev/null[m
+[1m+++ b/app/src/main/java/com/example/atlaswear/screens/artisan/AjouterProduitScreen.kt[m
+[36m@@ -0,0 +1,2 @@[m
+[32m+[m[32mpackage com.example.atlaswear.screens.artisan[m
+[32m+[m
+[1mdiff --git a/app/src/main/java/com/example/atlaswear/screens/artisan/CommandesArtisanScreen.kt b/app/src/main/java/com/example/atlaswear/screens/artisan/CommandesArtisanScreen.kt[m
+[1mnew file mode 100644[m
+[1mindex 0000000..accd1bf[m
+[1m--- /dev/null[m
+[1m+++ b/app/src/main/java/com/example/atlaswear/screens/artisan/CommandesArtisanScreen.kt[m
+[36m@@ -0,0 +1,2 @@[m
+[32m+[m[32mpackage com.example.atlaswear.screens.artisan[m
+[32m+[m
+[1mdiff --git a/app/src/main/java/com/example/atlaswear/screens/artisan/DashboardArtisanScreen.kt b/app/src/main/java/com/example/atlaswear/screens/artisan/DashboardArtisanScreen.kt[m
+[1mnew file mode 100644[m
+[1mindex 0000000..accd1bf[m
+[1m--- /dev/null[m
+[1m+++ b/app/src/main/java/com/example/atlaswear/screens/artisan/DashboardArtisanScreen.kt[m
+[36m@@ -0,0 +1,2 @@[m
+[32m+[m[32mpackage com.example.atlaswear.screens.artisan[m
+[32m+[m
+[1mdiff --git a/app/src/main/java/com/example/atlaswear/screens/artisan/InfosPersonnellesArtisanScreen.kt b/app/src/main/java/com/example/atlaswear/screens/artisan/InfosPersonnellesArtisanScreen.kt[m
+[1mnew file mode 100644[m
+[1mindex 0000000..accd1bf[m
+[1m--- /dev/null[m
+[1m+++ b/app/src/main/java/com/example/atlaswear/screens/artisan/InfosPersonnellesArtisanScreen.kt[m
+[36m@@ -0,0 +1,2 @@[m
+[32m+[m[32mpackage com.example.atlaswear.screens.artisan[m
+[32m+[m
+[1mdiff --git a/app/src/main/java/com/example/atlaswear/screens/artisan/ProfilArtisanScreen.kt b/app/src/main/java/com/example/atlaswear/screens/artisan/ProfilArtisanScreen.kt[m
+[1mnew file mode 100644[m
+[1mindex 0000000..accd1bf[m
+[1m--- /dev/null[m
+[1m+++ b/app/src/main/java/com/example/atlaswear/screens/artisan/ProfilArtisanScreen.kt[m
+[36m@@ -0,0 +1,2 @@[m
+[32m+[m[32mpackage com.example.atlaswear.screens.artisan[m
+[32m+[m

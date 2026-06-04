@@ -62,6 +62,27 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
+    // Firebase Firestore
     implementation("com.google.firebase:firebase-firestore-ktx:25.1.1")
+    // Firebase BOM — gère les versions automatiquement
+    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
 
+    // Firebase Auth
+    implementation("com.google.firebase:firebase-auth-ktx")
+
+    // Firebase Storage (pour les images)
+    implementation("com.google.firebase:firebase-storage-ktx")
+
+    // Coroutines Firebase — pour .await()
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
+
+    // Coroutines Android
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
+    // Navigation Compose
+    implementation("androidx.navigation:navigation-compose:2.7.7")
+    // Material Icons Extended
+    implementation("androidx.compose.material:material-icons-extended:1.6.0")
+    // Coil pour le chargement d'images
+    implementation("io.coil-kt:coil-compose:2.4.0")
 }
